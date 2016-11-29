@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-module
   type="WEB"
-  name="addressbook"
+  name="chap3"
   id="myeclipse.1227007723562"
   context-root="/chap3"
   j2ee-spec="1.4"
-  archive="addressbook.war">
+  archive="chap3.war">
   <attributes>
     <attribute name="webrootdir" value="WebRoot" />
   </attributes>

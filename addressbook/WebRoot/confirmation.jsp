@@ -1,6 +1,5 @@
 
 <%@ include file="taglibs.jsp" %>
-
 <app:validateSession/>
 <jsp:useBean id="user" scope="session" type="addressbook.model.UserBean"/>
 <html:html>
