@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.4" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee   http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+  <display-name>Struts AddressBook Sample Applications</display-name>
+  <servlet>
+    <servlet-name>userdatabase</servlet-name>
+    <servlet-class>addressbook.UserDatabaseServlet</servlet-class>
+    <init-param>
+      <param-name>debug</param-name>
+      <param-value>2</param-value>
+    </init-param>
+    <init-param>
+      <param-name>pathname</param-name>
+      <param-value>/WEB-INF/userdatabase.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>action</servlet-name>
+    <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
+    <init-param>
+      <param-name>config</param-name>
+      <param-value>/WEB-INF/struts-config.xml</param-value>
+    </init-param>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  
+  <filter>
+     <filter-name>encoding</filter-name>
+     <filter-class>filter.SetCharacterEncodingFilter</filter-class>
+     <init-param>
+        <param-name>encoding</param-name>
+        <param-value>gbk</param-value>
+     </init-param>
+</filter>
+
+  <servlet-mapping>
+    <servlet-name>action</servlet-name>
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+  
+  <filter-mapping>
+   <filter-name>encoding</filter-name>
+    <url-pattern>/*</url-pattern>
+</filter-mapping>
+  
+  
+  <welcome-file-list>
+    <welcome-file>logon.jsp</welcome-file>
+  </welcome-file-list>
+  
+   <jsp-config>
+  <!-- Struts Tag Library Descriptors -->
+  <taglib>
+    <taglib-uri>/WEB-INF/struts-bean.tld</taglib-uri>
+    <taglib-location>/WEB-INF/struts-bean.tld</taglib-location>
+  </taglib>
+
+  <taglib>
+    <taglib-uri>/WEB-INF/struts-html.tld</taglib-uri>
+    <taglib-location>/WEB-INF/struts-html.tld</taglib-location>
+  </taglib>
+
+  <taglib>
+    <taglib-uri>/WEB-INF/struts-logic.tld</taglib-uri>
+    <taglib-location>/WEB-INF/struts-logic.tld</taglib-location>
+  </taglib>
+    
+  </jsp-config>
+
+</web-app>
+

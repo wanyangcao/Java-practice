@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+
+<struts-config>
+  <data-sources />
+   <!-- ========== Form Bean Definitions =================================== -->
+  <form-beans>
+    <form-bean      name="logonForm"
+                    type="addressbook.forms.LogonForm"/> 
+    <form-bean      name="SearchForm"
+                    type="addressbook.forms.SearchForm"/>   
+    <form-bean      name="insertForm"
+                    type="addressbook.forms.InsertForm"/>             
+  </form-beans>
+  <global-exceptions />
+  <!-- ========== Global Forward Definitions ============================== -->
+  <global-forwards>
+    <forward   name="logon"                path="/logon.jsp"/>
+    <forward   name="logoff"               path="/logoff.do" /> 
+    <!-- <forward   name="success"              path="/mainMenu.jsp"/> -->
+    <forward   name="search"               path="/search.jsp"/>
+    <forward   name="displayall"           path="/displayall.do"/>
+    <forward   name="insert"               path="/insert.jsp"/>
+    <forward   name="mainMenu"             path="/mainMenu.jsp"/>
+    <forward   name="confirmation"	   path="/confirmation.jsp"/>
+  </global-forwards>
+   <!-- ========== Action Mapping Definitions ============================== -->
+   <action-mappings>
+      <action    path="/logon"
+                 type="addressbook.actions.LogonAction"
+                 name="logonForm"
+                 scope="request"
+                 input="/logon、true">
+                 <forward name="success" path="/mainMenu.jsp"/>  
+      </action>
+      
+      <action    path="/logoff"
+                 type="addressbook.actions.LogoffAction">
+        <forward name="success" path="/logon.jsp"/>
+      </action>
+      
+      <action  path="/displayall"
+               type="addressbook.actions.DisplayAllAction"
+               scope="request"
+               input="/mainMenu.jsp">
+               <forward name="success" path="/display.jsp"/>
+      </action>
+    <action
+      attribute="SearchForm"
+      input="/search.jsp"
+      name="SearchForm"
+      path="/search"
+      scope="request"
+      type="addressbook.actions.SearchAction">
+      <forward name="success" path="/display.jsp" />
+    </action>
+    <action   path="/insert"
+              type="addressbook.actions.InsertAction"
+              name="insertForm"
+              scope="request"
+              input="/insert.jsp"
+              validate="true">
+    </action>
+    
+      
+  </action-mappings>
+  <message-resources parameter="addressbook.ApplicationResources" />
+</struts-config>
+
