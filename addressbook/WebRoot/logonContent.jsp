@@ -3,14 +3,14 @@
 <html:errors/>
 <html:form action="/logon.do" focus="userName" >
 <center>
+<p><html:errors/></p>
 <table border="0" width="100%">
-
   <tr>
     <th align="right">
       <bean:message key="prompt.username"/>
     </th>
     <td align="left">
-      <html:text property="userName" size="15" maxlength="15"/>
+      <html:text property="userName" size="15" maxlength="15"/><br>
     </td>
   </tr>
 
