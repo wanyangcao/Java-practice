@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="portfolioPublic" namespace="/manning/public" extends="struts-default">
+
+		<result-types>
+			<result-type name="customJSON" class="manning.JSONResult" />
+		</result-types>
+
+		<global-results>
+			<result name="error">/portfolio/Error.jsp</result>
+		</global-results>
+
+		<global-exception-mappings>
+			<exception-mapping exception="java.lang.Exception"
+				result="error" />
+		</global-exception-mappings>
+
+		<action name="PortfolioHomePage" class="manning.PortfolioHomePage">
+			<result>/portfolio/PortfolioHomePage.jsp</result>
+		</action>
+
+		<action name="ArtistHomePage" class="manning.PortfolioHomePage">
+			<result>/portfolio/ArtistHomePage.jsp</result>
+		</action>
+
+		<action name="VisitorHomePage" class="manning.PortfolioHomePage">
+			<result>/portfolio/VisitorHomePage.jsp</result>
+		</action>
+
+
+		<action name="ViewPortfolioFM" class="manning.ViewPortfolio">
+			<result type="freemarker">/portfolio/ViewPortfolio.ftl</result>
+		</action>
+
+		<action name="ViewPortfolioJSP" class="manning.ViewPortfolio">
+			<result>/portfolio/ViewPortfolio.jsp</result>
+		</action>
+
+		<action name="ViewPortfolioVM" class="manning.ViewPortfolio">
+			<result type="velocity">/portfolio/ViewPortfolio.vm</result>
+		</action>
+
+		<action name="LoginForm">
+			<result>/portfolio/Login.jsp</result>
+		</action>
+
+		<action name="Login" class="manning.Login">
+			<result type="redirectAction">
+				<param name="actionName">AdminPortfolio</param>
+				<param name="namespace">/manning/secure</param>
+				<param name="param1">hardCodedValue</param>
+				<param name="param2">${testProperty}</param>
+			</result>
+			<result name="input">/portfolio/Login.jsp</result>
+		</action>
+
+		<action name="Registration">
+			<result>/portfolio/Registration.jsp</result>
+		</action>
+
+		<action name="Register" class="manning.Register">
+			<result>/portfolio/RegistrationSuccess.jsp</result>
+			<result name="input">/portfolio/Registration.jsp</result>
+		</action>
+
+		<action name="ForwardToAnotherServlet" class="manning.ForwardToAnotherServlet">
+			<result>/anotherServlet</result>
+		</action>
+
+		<action name="ErrorProne" class="manning.ErrorProne">
+		</action>
+
+		<action name="AjaxUserBrowser" class="manning.AjaxUserBrowser">
+			<result>/portfolio/ajaxUserBrowser.jsp</result>
+		</action>
+
+		<action name="AjaxRetrieveUser" class="manning.RetrieveUser">
+			<result type="customJSON">artist</result>
+		</action>
+	</package>
+
+
+	<!-- This package contains the secure portions of the Struts 2 Portfolio. 
+		This allows these secure actions to share inheritance of things specialized 
+		to the secure portions of the application. -->
+	<package name="chapterEightSecure" namespace="/manning/secure"
+		extends="struts-default">
+
+		<!-- We need to define the authentication interceptor and configure a new 
+			stack, based upon the builtin default stack. We will simply add our authentication 
+			stack to the top of the default stack and make it the default intercptor 
+			reference for the actions in this package. -->
+		<interceptors>
+
+			<interceptor name="authenticationInterceptor"
+				class="manning.utils.AuthenticationInterceptor" />
+
+			<interceptor-stack name="secureStack">
+				<interceptor-ref name="authenticationInterceptor" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+
+		</interceptors>
+
+		<default-interceptor-ref name="secureStack" />
+
+		<global-results>
+			<result name="login" type="redirect">/manning/public/LoginForm.action
+			</result>
+			<result name="error">/portfolio/Error.jsp</result>
+		</global-results>
+
+		<global-exception-mappings>
+			<exception-mapping exception="java.lang.Exception"
+				result="error" />
+		</global-exception-mappings>
+
+		<action name="AdminPortfolio">
+			<result>/portfolio/AdminPortfolio.jsp</result>
+		</action>
+
+		<action name="UpdateAccountForm" class="manning.UpdateAccountForm">
+			<result>/portfolio/UpdateAccountForm.jsp</result>
+		</action>
+
+		<action name="UpdateAccount" class="manning.UpdateAccount">
+			<result>/portfolio/UpdateAccountSuccess.jsp</result>
+			<result name="input">/portfolio/UpdateAccountForm.jsp</result>
+		</action>
+
+
+		<action name="AddImage">
+			<result>/portfolio/ImageUploadForm.jsp</result>
+		</action>
+
+		<action name="ImageUpload" class="manning.ImageUpload">
+			<param name="fileSystemPath">./portfolioFS/</param>
+			<result>/portfolio/ImageAdded.jsp</result>
+			<result name="input">/portfolio/ImageUploadForm.jsp</result>
+		</action>
+
+		<action name="RemoveImage">
+			<result>/portfolio/ImageRemoved.jsp</result>
+		</action>
+
+	</package>
+
+</struts>

@@ -1,0 +1,15 @@
+<html>
+
+	<head>
+    	<title>Viewing Portfolio</title>
+	</head>
+	<body>
+	
+		<h5>
+			This is the #sproperty ("value=portfolioName") portfolio of the artist currently 
+			known as #sproperty ("value=username")
+		</h5>
+		<a href='#surl ("action=PortfolioHomePage")'>Home</a> 
+	</body>
+	
+</html>
