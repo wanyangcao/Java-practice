@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<!-- 
+		This package contains the non-secure portions of the Struts 2 Portfolio.  This allows these
+		public actions to share inheritance of things specialized to the non-secure portions of the application.
+		
+		Note, at this point, the Struts 2 Portfolio doesn't actually have any security functionality to
+		check credentials or restrict access, but we have already packaged in a way that anticipates these
+		needs.
+	-->
+
+	<package name="portfolioPublic" namespace="/manning/public"
+		extends="struts-default">
+
+		<action name="PortfolioHomePage">
+			<result>/portfolio/PortfolioHomePage.jsp</result>
+		</action>
+
+    <!--  Just a stub at this point.  It's easy and helpful to stub out your pages and actions
+          even when you don't have the implementations yet.
+     -->
+		<action name="ViewPortfolios">
+			<result>/portfolio/ViewPortfolios.jsp</result>
+		</action>
+
+		<action name="Registration">
+			<result>/portfolio/Registration.jsp</result>
+		</action>
+
+		<action name="Register" class="manning.Register">
+			<result>/portfolio/RegistrationSuccess.jsp</result>
+			<result name="input">/portfolio/Registration.jsp</result>
+		</action>
+
+	</package>
+
+
+	<!-- 
+		This package contains the secure portions of the Struts 2 Portfolio.  This allows these
+		secure actions to share inheritance of things specialized to the secure portions of the application.
+	-->
+	<package name="portfolioSecure" namespace="/manning/secure"
+		extends="struts-default">
+
+		<action name="AdminPortfolio">
+			<result>/portfolio/AdminPortfolio.jsp</result>
+		</action>
+
+		<action name="AddImage">
+			<result>/portfolio/ImageUploadForm.jsp</result>
+		</action>
+
+		<action name="ImageUpload"
+			class="manning.ImageUpload">
+			<!--  
+						Set the fileSystemPath to a directory where you want the Struts 2 Portfolio to store
+						image files. 
+						
+						You can pass any param value into your actions as long as the action implements a JavaBeans
+						property to receive the value.  
+			 -->
+			<param name="fileSystemPath">./portfolioFS/</param>
+			<result>/portfolio/ImageAdded.jsp</result>
+			<result name="input">
+				/portfolio/ImageUploadForm.jsp
+			</result>
+		</action>
+
+    <!--  Just a stub at this point.  It's easy and helpful to stub out your pages and actions
+          even when you don't have the implementations yet.
+     -->
+		<action name="RemoveImage">
+			<result>/portfolio/ImageRemoved.jsp</result>
+		</action>
+
+	</package>
+
+</struts>
